@@ -1,0 +1,505 @@
+---
+title: "Estudo sobre a qualidade de vida no Brasil entre 1991, 2000 e 2010"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Introdução
+
+Este estudo mostra análises sobre as características demográficas da população brasileira durante a década de 90 e 2000. Foram utilizados os dados da PNUD (Pesquisa Nacional de Unidade Domiciliar).
+
+#Medidas Descritivas
+
+Foram utilizadas quatro variáveis para esta análise descritiva: Expectativa de Vida, Expectativa de anos de estudo até os 18 anos de idade, Renda per capita e população com água encanada. Estas variáveis foram analisadas nos anos de 1991, 2000 e 2010.
+
+##Expectativa de Vida
+### 1991
+```{r, warning=FALSE, message=FALSE}
+library(dplyr);library(magrittr)
+bs = read.csv("municipios.csv",header = T,sep=";",dec=",")
+bs1991 = bs[bs["ano"] == 1991,]
+summary(bs1991$espvida)
+boxplot(bs1991$espvida,col="Light Blue",main = "Expectativa de Vida nos municípios do Brasil - 1991",
+        ylab = "Expectativa de Vida")
+arrange(bs1991[,c(238,5,6)],desc(bs1991$espvida))[1:3,]
+arrange(bs1991[,c(238,5,6)],bs1991$espvida)[1:3,]
+```
+\
+\
+```{r, warning=FALSE, message=FALSE}
+bs2 = read.csv("pnud.csv",header = T,sep=";",dec=",")
+summary(bs2$espvida[bs2$ano==1991])
+boxplot(bs2$espvida[bs2$ano==1991],col = "Red",main = "Expectativa de Vida nos estados do Brasil - 1991",
+        ylab = "Expectativa de Vida")
+arrange(bs2[bs2$ano==1991,3:4],desc(bs2$espvida[bs2$ano==1991]))[1:3,]
+arrange(bs2[bs2$ano==1991,3:4],bs2$espvida[bs2$ano==1991])[1:3,]
+```
+
+### 2000
+```{r warning=FALSE, message=FALSE}
+bs2000 = bs[bs["ano"] == 2000,]
+summary(bs2000$espvida)
+boxplot(bs2000$espvida,col="Light Blue",main = "Expectativa de Vida nos municípios do Brasil - 2000",
+        ylab = "Expectativa de Vida")
+arrange(bs2000[,c(238,5,6)],desc(bs2000$espvida))[1:3,]
+arrange(bs2000[,c(238,5,6)],bs2000$espvida)[1:3,]
+```
+\
+\
+```{r, warning=FALSE, message=FALSE}
+summary(bs2$espvida[bs2$ano==2000])
+boxplot(bs2$espvida[bs2$ano==2000],col = "Red",main = "Expectativa de Vida nos estados do Brasil - 2000",
+        ylab = "Expectativa de Vida")
+arrange(bs2[bs2$ano==2000,3:4],desc(bs2$espvida[bs2$ano==2000]))[1:3,]
+arrange(bs2[bs2$ano==2000,3:4],bs2$espvida[bs2$ano==2000])[1:3,]
+```
+
+### 2010
+```{r, warning=FALSE,message=FALSE}
+bs2010 = bs[bs["ano"] == 2010,]
+summary(bs2010$espvida)
+boxplot(bs2010$espvida,col="Light Blue",main = "Expectativa de Vida nos municípios do Brasil - 2010",
+        ylab = "Expectativa de Vida")
+arrange(bs2010[,c(238,5,6)],desc(bs2010$espvida))[1:3,]
+arrange(bs2010[,c(238,5,6)],bs2010$espvida)[1:3,]
+```
+\
+\
+```{r, warning=FALSE, message=FALSE}
+summary(bs2$espvida[bs2$ano==2010])
+boxplot(bs2$espvida[bs2$ano==2010],col = "Red",main = "Expectativa de Vida nos estados do Brasil - 2010",
+        ylab = "Expectativa de Vida")
+arrange(bs2[bs2$ano==2010,3:4],desc(bs2$espvida[bs2$ano==2010]))[1:3,]
+arrange(bs2[bs2$ano==2010,3:4],bs2$espvida[bs2$ano==2010])[1:3,]
+```
+
+Pode-se perceber que, ao longo dos anos, a melhora da qualidade de vida das pessoas aumentou a expectativa de vida das mesmas. Os estados da região Nordeste são os que as pessoas tem menor expectativa de vida, ao passo que na região Sul, a população costuma viver mais.
+
+## Expectativa de anos de estudo até os 18 anos
+### 1991
+```{r, warning=FALSE,message=FALSE}
+summary(bs1991$e_anosestudo)
+boxplot(bs1991$e_anosestudo,col="Light Blue",main = "Expectativa de anos de estudo até os 18 anos nos municípios do Brasil - 1991",
+        ylab = "Exp. anos de estudo")
+arrange(bs1991[,c(238,5,14)],desc(bs1991$e_anosestudo))[1:3,]
+arrange(bs1991[,c(238,5,14)],bs1991$e_anosestudo)[1:3,]
+```
+\
+\
+```{r, warning=FALSE, message=FALSE}
+summary(bs2$e_anosestudo[bs2$ano==1991])
+boxplot(bs2$e_anosestudo[bs2$ano==1991],col = "Red",main = "Expectativa de anos de estudo até os 18 anos nos estados do Brasil - 1991",
+        ylab = "Exp. anos de estudo")
+arrange(bs2[bs2$ano==1991,c(3,12)],desc(bs2$e_anosestudo[bs2$ano==1991]))[1:3,]
+arrange(bs2[bs2$ano==1991,c(3,12)],bs2$e_anosestudo[bs2$ano==1991])[1:3,]
+```
+
+### 2000
+```{r, warning=FALSE,message=FALSE}
+summary(bs2000$e_anosestudo)
+boxplot(bs2000$e_anosestudo,col="Light Blue",main = "Expectativa de anos de estudo até os 18 anos nos municípios do Brasil - 2000",
+        ylab = "Exp. anos de estudo")
+arrange(bs2000[,c(238,5,14)],desc(bs2000$e_anosestudo))[1:3,]
+arrange(bs2000[,c(238,5,14)],bs2000$e_anosestudo)[1:3,]
+```
+\
+\
+```{r, warning=FALSE, message=FALSE}
+summary(bs2$e_anosestudo[bs2$ano==2000])
+boxplot(bs2$e_anosestudo[bs2$ano==2000],col = "Red",main = "Expectativa de anos de estudo até os 18 anos nos estados do Brasil - 2000",
+        ylab = "Exp. anos de estudo")
+arrange(bs2[bs2$ano==2000,c(3,12)],desc(bs2$e_anosestudo[bs2$ano==2000]))[1:3,]
+arrange(bs2[bs2$ano==2000,c(3,12)],bs2$e_anosestudo[bs2$ano==2000])[1:3,]
+```
+
+### 2010
+```{r, warning=FALSE,message=FALSE}
+summary(bs2010$e_anosestudo)
+boxplot(bs2010$e_anosestudo,col="Light Blue",main = "Expectativa de anos de estudo até os 18 anos nos municípios do Brasil - 2010",
+        ylab = "Exp. anos de estudo")
+arrange(bs2010[,c(238,5,14)],desc(bs2010$e_anosestudo))[1:3,]
+arrange(bs2010[,c(238,5,14)],bs2010$e_anosestudo)[1:3,]
+```
+\
+\
+```{r, warning=FALSE, message=FALSE}
+summary(bs2$e_anosestudo[bs2$ano==2010])
+boxplot(bs2$e_anosestudo[bs2$ano==2010],col = "Red",main = "Expectativa de anos de estudo até os 18 anos nos estados do Brasil - 2010",
+        ylab = "Exp. anos de estudo")
+arrange(bs2[bs2$ano==2010,c(3,12)],desc(bs2$e_anosestudo[bs2$ano==2010]))[1:3,]
+arrange(bs2[bs2$ano==2010,c(3,12)],bs2$e_anosestudo[bs2$ano==2010])[1:3,]
+```
+
+Novamente, esta expectativa apresentou melhora significativa ao longo dos anos. Porém, algumas cidades das regiões Norte e Nordeste ainda apresentam índices fracos quanto à escolaridade.
+
+## Renda per capita
+### 1991
+```{r, warning=FALSE, message=FALSE}
+summary(bs1991$rdpc)
+boxplot(bs1991$rdpc,col="Light Blue",main = "Renda per capita nos municípios do Brasil - 1991",
+        ylab = "Renda per capita")
+arrange(bs1991[,c(238,5,92)],desc(bs1991$rdpc))[1:3,]
+arrange(bs1991[,c(238,5,92)],bs1991$rdpc)[1:3,]
+```
+\
+\
+```{r, warning=FALSE, message=FALSE}
+summary(bs2$rdpc[bs2$ano==1991])
+boxplot(bs2$rdpc[bs2$ano==1991],col = "Red",main = "Renda per capita nos estados do Brasil - 1991",
+        ylab = "Renda per capita")
+arrange(bs2[bs2$ano==1991,c(3,90)],desc(bs2$rdpc[bs2$ano==1991]))[1:3,]
+arrange(bs2[bs2$ano==1991,c(3,90)],bs2$rdpc[bs2$ano==1991])[1:3,]
+```
+
+### 2000
+```{r, warning=FALSE, message=FALSE}
+summary(bs2000$rdpc)
+boxplot(bs2000$rdpc,col="Light Blue",main = "Renda per capita nos municípios do Brasil - 2000",
+        ylab = "Renda per capita")
+arrange(bs2000[,c(238,5,92)],desc(bs2000$rdpc))[1:3,]
+arrange(bs2000[,c(238,5,92)],bs2000$rdpc)[1:3,]
+```
+\
+\
+```{r, warning=FALSE, message=FALSE}
+summary(bs2$rdpc[bs2$ano==2000])
+boxplot(bs2$rdpc[bs2$ano==2000],col = "Red",main = "Renda per capita nos estados do Brasil - 2000",
+        ylab = "Renda per capita")
+arrange(bs2[bs2$ano==2000,c(3,90)],desc(bs2$rdpc[bs2$ano==2000]))[1:3,]
+arrange(bs2[bs2$ano==2000,c(3,90)],bs2$rdpc[bs2$ano==2000])[1:3,]
+```
+
+### 2010
+```{r, warning=FALSE, message=FALSE}
+summary(bs2010$rdpc)
+boxplot(bs2010$rdpc,col="Light Blue",main = "Renda per capita nos municípios do Brasil - 2010",
+        ylab = "Renda per capita")
+arrange(bs2010[,c(238,5,92)],desc(bs2010$rdpc))[1:3,]
+arrange(bs2010[,c(238,5,92)],bs2010$rdpc)[1:3,]
+```
+\
+\
+```{r, warning=FALSE, message=FALSE}
+summary(bs2$rdpc[bs2$ano==2010])
+boxplot(bs2$rdpc[bs2$ano==2010],col = "Red",main = "Renda per capita nos estados do Brasil - 2010",
+        ylab = "Renda per capita")
+arrange(bs2[bs2$ano==2010,c(3,90)],desc(bs2$rdpc[bs2$ano==2010]))[1:3,]
+arrange(bs2[bs2$ano==2010,c(3,90)],bs2$rdpc[bs2$ano==2010])[1:3,]
+```
+
+Os grandes centros econômicos (São Paulo, Rio de Janeiro, Distrito Federal e Região Sul) se destacam por garantirem maiores salários. As cidades de região Nordeste apresentaram aumento nos salários ao longo destes 20 anos, mas ainda têm uma renda per capita baixa em relação às cidades das outras regiões do país.
+
+##População com AGUA ENCANADA
+###1991
+```{r, warning=FALSE,message=FALSE}
+summary(bs1991$t_agua)
+boxplot(bs1991$t_agua,col="Light Blue",main = "População com água encanada nos municípios do Brasil - 1991",
+        ylab = "Porcentagem")
+arrange(bs1991[,c(238,5,139)],desc(bs1991$t_agua))[1:3,]
+arrange(bs1991[,c(238,5,139)],bs1991$t_agua)[1:3,]
+```
+\
+\
+```{r, warning=FALSE,message=FALSE}
+summary(bs2$t_agua[bs2$ano==1991])
+boxplot(bs2$t_agua[bs2$ano==1991],col = "Red",main = "População com água encanada nos estados do Brasil - 1991",
+        ylab = "Porcentagem")
+arrange(bs2[bs2$ano==1991,c(3,137)],desc(bs2$t_agua[bs2$ano==1991]))[1:3,]
+arrange(bs2[bs2$ano==1991,c(3,137)],bs2$t_agua[bs2$ano==1991])[1:3,]
+```
+
+### 2000
+```{r, warning=FALSE,message=FALSE}
+summary(bs2000$t_agua)
+boxplot(bs2000$t_agua,col="Light Blue",main = "População com água encanada nos municípios do Brasil - 2000",
+        ylab = "Porcentagem")
+arrange(bs2000[,c(238,5,139)],desc(bs2000$t_agua))[1:3,]
+arrange(bs2000[,c(238,5,139)],bs2000$t_agua)[1:3,]
+```
+\
+\
+```{r, warning=FALSE,message=FALSE}
+summary(bs2$t_agua[bs2$ano==2000])
+boxplot(bs2$t_agua[bs2$ano==2000],col = "Red",main = "População com água encanada nos estados do Brasil - 2000",
+        ylab = "Porcentagem")
+arrange(bs2[bs2$ano==2000,c(3,137)],desc(bs2$t_agua[bs2$ano==2000]))[1:3,]
+arrange(bs2[bs2$ano==2000,c(3,137)],bs2$t_agua[bs2$ano==2000])[1:3,]
+```
+
+### 2010
+```{r, warning=FALSE,message=FALSE}
+summary(bs2010$t_agua)
+boxplot(bs2010$t_agua,col="Light Blue",main = "População com água encanada nos municípios do Brasil - 2010",
+        ylab = "Porcentagem")
+arrange(bs2010[,c(238,5,139)],desc(bs2010$t_agua))[1:3,]
+arrange(bs2010[,c(238,5,139)],bs2010$t_agua)[1:3,]
+```
+\
+\
+```{r, warning=FALSE,message=FALSE}
+summary(bs2$t_agua[bs2$ano==2010])
+boxplot(bs2$t_agua[bs2$ano==2010],col = "Red",main = "População com água encanada nos estados do Brasil - 2010",
+        ylab = "Porcentagem")
+arrange(bs2[bs2$ano==2010,c(3,137)],desc(bs2$t_agua[bs2$ano==2010]))[1:3,]
+arrange(bs2[bs2$ano==2010,c(3,137)],bs2$t_agua[bs2$ano==2010])[1:3,]
+```
+
+Como as outras variáveis, houve evolução ao longo do tempo, as cidades do centro-Sul tem os melhores índices e as do Nordeste, os piores.
+
+# Maiores IDH municipais em 2010
+
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+bs2010 %>%
+  select(municipio,ufn,idhm) %>%
+  filter(idhm > 0.8) %>%
+  arrange(desc(idhm))
+```
+
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+bs2010 %>%
+  select(municipio,ufn,idhm) %>%
+  filter(idhm > 0.8) %>%
+  arrange(desc(idhm)) %>%
+  count(ufn)
+```
+
+Pode-se perceber que, das 39 cidades com IDHM acima de 0.8, apenas uma está fora das regiões Sudeste e Sul, sendo esta Brasília. Das demais 38 cidades, vinte e uma estão em São Paulo e dez estão em Santa Catarina.
+
+# Unidade federativa com menor expectativa de vida média, ponderada pela população dos municípios em 2000.
+
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+bs2000$poptotal = bs2000$homemtot + bs2000$mulhertot
+bs2000 %>%
+  select(ufn,espvida,poptotal) %>%
+  group_by(ufn) %>%
+  summarise(evd_pond_est = weighted.mean(espvida,poptotal)) %>%
+  arrange(evd_pond_est)
+```
+
+O Maranhão é a unidade federativa com menor expectativa de vida média, 
+ponderada pela população dos municípios em 2000. Essa espectativa é de 63.9 anos.
+
+# Municípios outliers com relação ao índice de Gini em 1991 e em 2010
+
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+a = quantile(bs1991$gini,0.75) + (1.5*(quantile(bs1991$gini,0.75) - quantile(bs1991$gini,0.25)))
+b = quantile(bs1991$gini,0.25) - (1.5*(quantile(bs1991$gini,0.75) - quantile(bs1991$gini,0.25)))
+
+bs1991 %>%
+  select(municipio,ufn,gini) %>%
+  filter(gini > a | gini < b) %>%
+  arrange(desc(gini))
+```
+
+# Quantidade de municípios VS População acumulada desses municípios
+## 1991
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+bs1991$poptotal = bs1991$homemtot + bs1991$mulhertot
+base1991 = bs1991 %>%
+  select(municipio,ufn,poptotal) %>%
+  arrange(poptotal)
+base1991$num = 1:nrow(base1991)
+
+base1991$popacum = NULL
+for(i in 1:nrow(base1991)){
+  if(i == 1){
+    base1991$popacum[i] = base1991$poptotal[i]
+  }else{
+    base1991$popacum[i] = base1991$poptotal[i] + base1991$popacum[i-1]
+  }
+}
+
+plot(base1991$num,base1991$popacum,type="l",
+     xlab="Número de Cidades",ylab="População Acumulada",lwd = 2)
+```
+
+## 2000
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+base2000 = bs2000 %>%
+  select(municipio,ufn,poptotal) %>%
+  arrange(poptotal)
+
+base2000$num = 1:nrow(base2000)
+
+base2000$popacum = NULL
+for(i in 1:nrow(base2000)){
+  if(i == 1){
+    base2000$popacum[i] = base2000$poptotal[i]
+  }else{
+    base2000$popacum[i] = base2000$poptotal[i] + base2000$popacum[i-1]
+  }
+}
+
+plot(base2000$num,base2000$popacum,type="l",
+     xlab="Número de Cidades",ylab="População Acumulada",lwd = 2)
+```
+
+## 2010
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+bs2010$poptotal = bs2010$homemtot + bs2010$mulhertot
+base2010 = bs2010 %>%
+  select(municipio,ufn,poptotal) %>%
+  arrange(poptotal)
+
+base2010$num = 1:nrow(base2010)
+
+base2010$popacum = NULL
+for(i in 1:nrow(base2010)){
+  if(i == 1){
+    base2010$popacum[i] = base2010$poptotal[i]
+  }else{
+    base2010$popacum[i] = base2010$poptotal[i] + base2010$popacum[i-1]
+  }
+}
+
+plot(base2010$num,base2010$popacum,type="l",
+     xlab="Número de Cidades",ylab="População Acumulada",lwd = 2)
+```
+
+Nos três gráficos, pode-se perceber que, ordenando os múnicípios pelo tamanho da população, os municípios com grande população concentram boa parte da população. Isso pode ser comprovado pelo fato de que até os 5000 municípios menos populosos do país, a população acumulada não passava ou passava por pouco dos 50 milhões de habitantes.
+
+# Associação Renda per capita e Expectativa de vida.
+## 1991
+
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+bs1991$rpc = NULL
+for(i in 1:nrow(bs1991)){
+  if(bs1991$rdpc[i] < quantile(bs1991$rdpc,probs=seq(0.2,1,0.2))[1]){
+    bs1991$rpc[i] = "Muito Baixa"
+  }
+  if(bs1991$rdpc[i] >= quantile(bs1991$rdpc,probs=seq(0.2,1,0.2))[1] & bs1991$rdpc[i] < quantile(bs1991$rdpc,probs=seq(0.2,1,0.2))[2]){
+    bs1991$rpc[i] = "Baixa"
+  }
+  if(bs1991$rdpc[i] >= quantile(bs1991$rdpc,probs=seq(0.2,1,0.2))[2] & bs1991$rdpc[i] < quantile(bs1991$rdpc,probs=seq(0.2,1,0.2))[3]){
+    bs1991$rpc[i] = "Média"
+  }
+  if(bs1991$rdpc[i] >= quantile(bs1991$rdpc,probs=seq(0.2,1,0.2))[3] & bs1991$rdpc[i] < quantile(bs1991$rdpc,probs=seq(0.2,1,0.2))[4]){
+    bs1991$rpc[i] = "Alta"
+  }
+  if(bs1991$rdpc[i] >= quantile(bs1991$rdpc,probs=seq(0.2,1,0.2))[4]){
+    bs1991$rpc[i] = "Muito Alta"
+  }
+}
+
+cat = bs1991 %>%
+  select(municipio,espvida,rpc) %>%
+  group_by(rpc) %>%
+  summarise(mean_lifexp_rpc = mean(espvida)) %>%
+  arrange(mean_lifexp_rpc)
+barplot(cat$mean_lifexp_rpc,names.arg = cat$rpc,col = 1:5,ylim = c(0,70),ylab = "Expectativa de vida",xlab="Renda per capita categorizada")
+```
+
+## 2000
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+bs2000$rpc = NULL
+for(i in 1:nrow(bs2000)){
+  if(bs2000$rdpc[i] < quantile(bs2000$rdpc,probs=seq(0.2,1,0.2))[1]){
+    bs2000$rpc[i] = "Muito Baixa"
+  }
+  if(bs2000$rdpc[i] >= quantile(bs2000$rdpc,probs=seq(0.2,1,0.2))[1] & bs2000$rdpc[i] < quantile(bs2000$rdpc,probs=seq(0.2,1,0.2))[2]){
+    bs2000$rpc[i] = "Baixa"
+  }
+  if(bs2000$rdpc[i] >= quantile(bs2000$rdpc,probs=seq(0.2,1,0.2))[2] & bs2000$rdpc[i] < quantile(bs2000$rdpc,probs=seq(0.2,1,0.2))[3]){
+    bs2000$rpc[i] = "Média"
+  }
+  if(bs2000$rdpc[i] >= quantile(bs2000$rdpc,probs=seq(0.2,1,0.2))[3] & bs2000$rdpc[i] < quantile(bs2000$rdpc,probs=seq(0.2,1,0.2))[4]){
+    bs2000$rpc[i] = "Alta"
+  }
+  if(bs2000$rdpc[i] >= quantile(bs2000$rdpc,probs=seq(0.2,1,0.2))[4]){
+    bs2000$rpc[i] = "Muito Alta"
+  }
+}
+
+cat2 = bs2000 %>%
+  select(municipio,espvida,rpc) %>%
+  group_by(rpc) %>%
+  summarise(mean_lifexp_rpc = mean(espvida)) %>%
+  arrange(mean_lifexp_rpc)
+barplot(cat2$mean_lifexp_rpc,names.arg = cat2$rpc,col = 1:5,ylim = c(0,85),ylab = "Expectativa de vida",xlab="Renda per capita categorizada")
+```
+
+## 2010
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+bs2010$rpc = NULL
+for(i in 1:nrow(bs2010)){
+  if(bs2010$rdpc[i] < quantile(bs2010$rdpc,probs=seq(0.2,1,0.2))[1]){
+    bs2010$rpc[i] = "Muito Baixa"
+  }
+  if(bs2010$rdpc[i] >= quantile(bs2010$rdpc,probs=seq(0.2,1,0.2))[1] & bs2010$rdpc[i] < quantile(bs2010$rdpc,probs=seq(0.2,1,0.2))[2]){
+    bs2010$rpc[i] = "Baixa"
+  }
+  if(bs2010$rdpc[i] >= quantile(bs2010$rdpc,probs=seq(0.2,1,0.2))[2] & bs2010$rdpc[i] < quantile(bs2010$rdpc,probs=seq(0.2,1,0.2))[3]){
+    bs2010$rpc[i] = "Média"
+  }
+  if(bs2010$rdpc[i] >= quantile(bs2010$rdpc,probs=seq(0.2,1,0.2))[3] & bs2010$rdpc[i] < quantile(bs2010$rdpc,probs=seq(0.2,1,0.2))[4]){
+    bs2010$rpc[i] = "Alta"
+  }
+  if(bs2010$rdpc[i] >= quantile(bs2010$rdpc,probs=seq(0.2,1,0.2))[4]){
+    bs2010$rpc[i] = "Muito Alta"
+  }
+}
+
+cat3 = bs2010 %>%
+  select(municipio,espvida,rpc) %>%
+  group_by(rpc) %>%
+  summarise(mean_lifexp_rpc = mean(espvida)) %>%
+  arrange(mean_lifexp_rpc)
+barplot(cat3$mean_lifexp_rpc,names.arg = cat3$rpc,col = 1:5,ylim = c(0,85),ylab = "Expectativa de vida",xlab="Renda per capita categorizada")
+```
+
+Ao longo dos anos, a renda per capita influencia em melhores condições de vida. As cidades com populações de maior renda per capita tendem a ter expectativas médias de vida mais altas em relação às cidades com populações de renda per capita média e baixa.
+
+# No nordeste o aumento de distribuição de renda foi maior do que no sudeste?
+
+```{r,echo = FALSE,warning=FALSE,message=FALSE}
+bs22 = bs2 %>%
+  select(ano,uf,ufn,idhm,idhm_e,idhm_l,idhm_r,gini)
+
+bs22$regiao = NULL
+for(i in 1:nrow(bs22)){
+  if(bs22$uf[i] >= 10 & bs22$uf[i] <= 19){
+    bs22$regiao[i] = "Norte"
+  }
+  if(bs22$uf[i] >= 20 & bs22$uf[i] <= 29){
+    bs22$regiao[i] = "Nordeste"
+  }
+  if(bs22$uf[i] >= 30 & bs22$uf[i] <= 39){
+    bs22$regiao[i] = "Sudeste"
+  }
+  if(bs22$uf[i] >= 40 & bs22$uf[i] <= 49){
+    bs22$regiao[i] = "Sul"
+  }
+  if(bs22$uf[i] >= 50){
+    bs22$regiao[i] = "Centro-Oeste"
+  }
+}
+
+ND = c(mean(bs22$gini[bs22$ano == 1991 & bs22$regiao == "Nordeste"]),
+     mean(bs22$gini[bs22$ano == 2000 & bs22$regiao == "Nordeste"]),
+     mean(bs22$gini[bs22$ano == 2010 & bs22$regiao == "Nordeste"]))
+
+SD = c(mean(bs22$gini[bs22$ano == 1991 & bs22$regiao == "Sudeste"]),
+       mean(bs22$gini[bs22$ano == 2000 & bs22$regiao == "Sudeste"]),
+       mean(bs22$gini[bs22$ano == 2010 & bs22$regiao == "Sudeste"]))
+
+nd = c(0,(ND[2]/ND[1] * 100)-100,(ND[3]/ND[2] * 100)-(ND[2]/ND[1] * 100))
+sd = c(0,(SD[2]/SD[1] * 100)-100,(SD[3]/SD[2] * 100)-(SD[2]/SD[1] * 100))
+
+plot(bs22$ano[bs22$ufn == "Paraná"],nd,
+     type = "b",ylab = "Aumento de Distribuição de Renda",xlab = "Ano",
+     main = "Aumento de Distribuição de Renda em relação aos anos de 1991 e 2000",
+     ylim = c(-10,3),lwd = 10,col="Green")
+lines(bs22$ano[bs22$ufn == "Mato Grosso do Sul"],sd,
+      col = 2,type="b",lwd=10)
+legend("topright",c("Nordeste","Sudeste"),pch=19,
+       col=c("Green","Red"),cex=1)
+```
+
+No Nordeste, entre os anos de 1991 a 2000, o aumento da distribuição de renda foi que o aumento da região Sudeste (a distribuição de renda na verdade ficou praticamente estável). Porém, entre os anos 2000 e 2010, o decréscimo da distribuição de renda na região Nordeste também foi maior em relação ao decréscimo da região Sudeste. 
+Portanto, não se ode concluir que a região Nordeste teve um aumento de distribuição de renda maior que a Região Sudeste.
